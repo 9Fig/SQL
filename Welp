@@ -1,0 +1,32 @@
+SELECT *
+FROM places;
+
+SELECT *
+FROM reviews;
+
+SELECT *
+FROM places
+WHERE price_point = '$'
+  OR price_point = '$$';
+
+SELECT places.name, places.average_rating, reviews.username, reviews.rating, reviews.review_date, reviews.note
+FROM places
+INNER JOIN reviews
+  ON places.id = reviews.place_id;
+
+SELECT places.name, places.average_rating, reviews.username, reviews.rating, reviews.review_date, reviews.note
+FROM places
+LEFT JOIN reviews
+  ON places.id = reviews.place_id;
+
+SELECT places.id, places.name
+FROM places
+LEFT JOIN reviews
+  ON places.id = reviews.place_id
+WHERE reviews.place_id IS null;
+
+WITH reviews_2020 AS (
+  SELECT *
+  FROM reviews 
+  WHERE strftime("%Y", review_date) = '2020'
+)
